@@ -1,0 +1,123 @@
+diff --git a/benchmark.py b/benchmark.py
+old mode 100755
+new mode 100644
+diff --git a/demo@obama/convert_imgs_to_video.py b/demo@obama/convert_imgs_to_video.py
+old mode 100755
+new mode 100644
+diff --git a/demo@obama/rendering.py b/demo@obama/rendering.py
+old mode 100755
+new mode 100644
+diff --git a/demo@obama/rendering_demo.py b/demo@obama/rendering_demo.py
+old mode 100755
+new mode 100644
+diff --git a/docker-compose.yml b/docker-compose.yml
+deleted file mode 100644
+index a7c0d9e..0000000
+--- a/docker-compose.yml
++++ /dev/null
+@@ -1,8 +0,0 @@
+-version: '2.3'
+-
+-services:
+-
+-  3ddfa:
+-    build: .
+-    volumes:
+-      - ./:/root/
+diff --git a/main.py b/main.py
+old mode 100755
+new mode 100644
+index 149d367..0eb1bd1
+--- a/main.py
++++ b/main.py
+@@ -68,7 +68,11 @@ def main(args):
+         if len(rects) == 0:
+             rects = dlib.rectangles()
+             rect_fp = img_fp + '.bbox'
+-            lines = open(rect_fp).read().strip().split('\n')[1:]
++            try :
++                lines = open(rect_fp).read().strip().split('\n')[1:]
++            except FileNotFoundError:
++                print('Cannot load bbox file')
++                continue
+             for l in lines:
+                 l, r, t, b = [int(_) for _ in l.split(' ')[1:]]
+                 rect = dlib.rectangle(l, r, t, b)
+diff --git a/mobilenet_v1.py b/mobilenet_v1.py
+old mode 100755
+new mode 100644
+diff --git a/samples/emma_input_3DDFA.jpg b/samples/emma_input_3DDFA.jpg
+index 39f47b0..18af06f 100644
+Binary files a/samples/emma_input_3DDFA.jpg and b/samples/emma_input_3DDFA.jpg differ
+diff --git a/samples/emma_input_pose.jpg b/samples/emma_input_pose.jpg
+index 379a114..337a3e5 100644
+Binary files a/samples/emma_input_pose.jpg and b/samples/emma_input_pose.jpg differ
+diff --git a/samples/test1_3DDFA.jpg b/samples/test1_3DDFA.jpg
+index e744008..85ba244 100644
+Binary files a/samples/test1_3DDFA.jpg and b/samples/test1_3DDFA.jpg differ
+diff --git a/samples/test1_pose.jpg b/samples/test1_pose.jpg
+index fe4defa..dcfd86a 100644
+Binary files a/samples/test1_pose.jpg and b/samples/test1_pose.jpg differ
+diff --git a/speed_cpu.py b/speed_cpu.py
+old mode 100755
+new mode 100644
+diff --git a/test.configs/AFLW2000-3D-Reannotated.pts68.npy b/test.configs/AFLW2000-3D-Reannotated.pts68.npy
+old mode 100755
+new mode 100644
+diff --git a/test.configs/AFLW2000-3D-new.pose.npy b/test.configs/AFLW2000-3D-new.pose.npy
+old mode 100755
+new mode 100644
+diff --git a/test.configs/AFLW2000-3D.pose.npy b/test.configs/AFLW2000-3D.pose.npy
+old mode 100755
+new mode 100644
+diff --git a/test.configs/AFLW2000-3D.pts21.npy b/test.configs/AFLW2000-3D.pts21.npy
+old mode 100755
+new mode 100644
+diff --git a/test.configs/AFLW2000-3D.pts68.npy b/test.configs/AFLW2000-3D.pts68.npy
+old mode 100755
+new mode 100644
+diff --git a/test.configs/AFLW2000-3D_crop.roi_box.npy b/test.configs/AFLW2000-3D_crop.roi_box.npy
+old mode 100755
+new mode 100644
+diff --git a/test.configs/AFLW_GT_crop_roi_box.npy b/test.configs/AFLW_GT_crop_roi_box.npy
+old mode 100755
+new mode 100644
+diff --git a/test.configs/AFLW_GT_crop_yaws.npy b/test.configs/AFLW_GT_crop_yaws.npy
+old mode 100755
+new mode 100644
+diff --git a/test.configs/AFLW_GT_pts21.npy b/test.configs/AFLW_GT_pts21.npy
+old mode 100755
+new mode 100644
+diff --git a/test.configs/AFLW_GT_pts68.npy b/test.configs/AFLW_GT_pts68.npy
+old mode 100755
+new mode 100644
+diff --git a/train.py b/train.py
+old mode 100755
+new mode 100644
+diff --git a/training/train.py b/training/train.py
+index c015d71..263d5aa 120000
+Binary files a/training/train.py and b/training/train.py differ
+diff --git a/training/train_pdc.sh b/training/train_pdc.sh
+old mode 100755
+new mode 100644
+diff --git a/training/train_vdc.sh b/training/train_vdc.sh
+old mode 100755
+new mode 100644
+diff --git a/training/train_wpdc.sh b/training/train_wpdc.sh
+old mode 100755
+new mode 100644
+diff --git a/utils/inference.py b/utils/inference.py
+old mode 100755
+new mode 100644
+diff --git a/utils/lighting.py b/utils/lighting.py
+old mode 100755
+new mode 100644
+diff --git a/utils/paf.py b/utils/paf.py
+old mode 100755
+new mode 100644
+diff --git a/utils/render.py b/utils/render.py
+old mode 100755
+new mode 100644
+diff --git a/visualize.py b/visualize.py
+old mode 100755
+new mode 100644

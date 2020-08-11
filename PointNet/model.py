@@ -8,7 +8,6 @@ from keras.layers import Dense, Flatten, Reshape, Dropout
 from keras.layers import Convolution1D, MaxPooling1D, BatchNormalization
 from keras.layers import Lambda
 
-
 def mat_mul(A, B):
     """
     :param A: operand A
@@ -18,7 +17,7 @@ def mat_mul(A, B):
     return tf.matmul(A, B)
 
 
-def build_model(num_points=53215, cat=7):
+def build_model(num_points=68, cat=7):
     """
     :param num_points: number of points in each sample (default=53215)
     :param cat: number of categories (default=7)

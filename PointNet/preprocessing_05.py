@@ -4,11 +4,11 @@ import pandas as pd
 from keras.utils import to_categorical
 from tqdm import tqdm
 
-NPZ_PATH = "data/npzs/"
+NPY_PATH = "data/npys/"
 OUT_PATH = 'data/'
 nClasses = 7
 
-NUM_POINTS = 53215
+NUM_POINTS = 68
 Emotions = ["Angry", "Disgust", "Fear", "Happy", "Sad", "Surprise", "Neutral"]  # indices 0 to 6
 
 data = pd.read_csv('./data/label.csv')
@@ -16,13 +16,13 @@ print(data)
 
 pts = []
 
-for (path, _, files) in os.walk(NPZ_PATH):
+for (path, _, files) in os.walk(NPY_PATH):
     for filename in tqdm(files):
         ext = os.path.splitext(filename)[-1]
-        if ext == '.npz':
+        if ext == '.npy':
             pt = np.load(path + filename)
-            pts.append(pt.f.arr_0)
-            pt.close()
+            pts.append(pt)
+            #pt.close()
 
 print(pts)
 pts_srs = pd.Series(pts)
@@ -43,11 +43,9 @@ def fer2013_to_X(table):
     pixels_list = table["pts"].values
 
     for xyz in tqdm(pixels_list):
-        single_xyz = np.reshape(xyz, (-1, NUM_POINTS, 3)).astype("float")
-        X = np.append(X, single_xyz)
+        X = np.append(X, xyz)
 
-        # convert list to 3D array
-        X = np.expand_dims(np.array(X), -1)
+    X = X.reshape((-1, NUM_POINTS, 3))
 
     return X
 

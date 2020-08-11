@@ -7,18 +7,13 @@ import matplotlib.pyplot as plt
 IN_DIR = "data/"
 
 RND_SEED = 0
-BATCH_SIZE = 1
+BATCH_SIZE = 64
 EPOCHS = 20
 
 # 데이터 로드
 train_X = np.load(open(IN_DIR + 'train_X.npy', 'rb'))
 val_X = np.load(open(IN_DIR + 'val_X.npy', 'rb'))
 test_X = np.load(open(IN_DIR + 'test_X.npy', 'rb'))
-
-# TODO : remove this lines
-train_X = train_X.reshape(-1, 53215, 3)
-val_X = val_X.reshape(-1, 53215, 3)
-test_X = test_X.reshape(-1, 53215, 3)
 
 train_y = np.load(open(IN_DIR + 'train_y.npy', 'rb'))
 val_y = np.load(open(IN_DIR + 'val_y.npy', 'rb'))
@@ -30,11 +25,12 @@ model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accur
 model.summary()
 
 # 콜백 함수 등록
-check_point = ModelCheckpoint(filepath='./logs/weights', monitor='val_loss', verbose=1, save_best_only=True)
+check_point = ModelCheckpoint(filepath='./logs/weights.h5', monitor='val_loss', verbose=1, save_best_only=True)
 
 # 모델 훈련
 history = model.fit(train_X, train_y, epochs=EPOCHS, batch_size=BATCH_SIZE,
-                    validation_data=(val_X, val_y), callbacks=[check_point])
+                    validation_data=(val_X, val_y))
+                    #validation_data=(val_X, val_y)), callbacks=[check_point])
 
 # 정확도 출력
 results = model.evaluate(test_X, test_y)

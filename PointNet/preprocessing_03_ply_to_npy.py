@@ -7,22 +7,28 @@ from tqdm import tqdm
 from multiprocessing import Pool
 
 PLY_PATH = "data/plys/"
-OUT_DIR = "data/npzs/"
+OUT_DIR = "data/npys/"
+#OUT_DIR = "data/npzs/"
 
 data = []
+filenames = []
 for (path, _, files) in os.walk(PLY_PATH):
     for filename in files:
         ext = os.path.splitext(filename)[-1]
         if ext == '.ply':
             #print("{}{}".format(path, filename))
             data.append("{}{}".format(path, filename))
+            filenames.append("{}".format(filename))
 
 
 def saveNpz(index):
     pc = o3d.io.read_point_cloud(data[index])
     pts = np.array(pc.points)
-    np.savez_compressed(OUT_DIR + "{}".format(data[index].split('/')[-1].split('.')[-2]), pts)
+    #downpcd = pts.voxel_down_sample(voxel_size=5)
+    np.save(OUT_DIR + "{}".format(filenames[index].split('.')[-2]), pts)
+    #np.savez_compressed(OUT_DIR + "{}".format(data[index].split('/')[-1].split('.')[-2]), pts)
     #np.savez_compressed(OUT_DIR + "{}".format(data[index].split('/')[-1]), pts)
+
 
 with Pool(processes=32) as p:
     max_ = len(data)
